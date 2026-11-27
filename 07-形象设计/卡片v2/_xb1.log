@@ -1,0 +1,24 @@
+共 6 个任务
+Traceback (most recent call last):
+  File "E:\心理咨询IP\07-形象设计\卡片v2\render_all.py", line 279, in <module>
+    if asyncio.run(render(nm, d)): ok += 1
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Dell\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Dell\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Dell\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "E:\心理咨询IP\07-形象设计\卡片v2\render_all.py", line 239, in render
+    print(f"  \u2705 {name}: {n}/{frames} → {os.path.basename(o)}", flush=True)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 2: illegal multibyte sequence
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\心理咨询IP\07-形象设计\卡片v2\render_all.py", line 281, in <module>
+    print(f"  \u274c {nm} 异常 {type(e).__name__}", flush=True)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u274c' in position 2: illegal multibyte sequence

@@ -1,0 +1,7 @@
+OK 1  dur=190.5s  segs=67  cost=35.3s
+OK 2  dur=149.6s  segs=54  cost=25.6s
+OK 3  dur=171.3s  segs=79  cost=39.3s
+OK 4  dur=128.0s  segs=42  cost=29.7s
+OK 5  dur=162.7s  segs=55  cost=37.5s
+OK 6  dur=147.9s  segs=63  cost=33.8s
+[{"n": 1, "dur": 190.55, "segs": 67, "last": 188.49}, {"n": 2, "dur": 149.59, "segs": 54, "last": 147.61}, {"n": 3, "dur": 171.33, "segs": 79, "last": 169.65}, {"n": 4, "dur": 128.02, "segs": 42, "last": 126.53}, {"n": 5, "dur": 162.69, "segs": 55, "last": 160.86}, {"n": 6, "dur": 147.93, "segs": 63, "last": 146.07}]

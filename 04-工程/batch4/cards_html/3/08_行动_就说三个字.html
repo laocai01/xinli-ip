@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'DY';src:url('file:///E:/心理咨询IP/07-形象设计/fonts/fonts-main/DouyinSans/DouyinSansBold.ttf') format('truetype');font-weight:700;font-display:block}
+@font-face{font-family:'KAI';src:url('file:///C:/Windows/Fonts/simkai.ttf') format('truetype');font-display:block}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{position:relative;color:var(--l1);background:var(--bg);
+     font-family:'DY','Microsoft YaHei',sans-serif;-webkit-font-smoothing:antialiased}
+.bgtone{position:absolute;inset:0;z-index:0;pointer-events:none;
+     background:
+       radial-gradient(110% 75% at 80% 10%, rgba(160,74,36,0.085) 0%, rgba(0,0,0,0) 60%),
+       radial-gradient(85% 55% at 10% 94%, rgba(46,42,38,0.070) 0%, rgba(0,0,0,0) 58%)}
+.ch{display:inline-block;will-change:transform,opacity}
+/* ★ 2026-11-18 董事长：绝不许一个字占一行 */
+.nl{word-break:keep-all;overflow-wrap:normal}
+.stage div,.stage span{word-break:keep-all;overflow-wrap:normal}
+.brand{position:absolute;left:0;right:0;top:70px;display:flex;align-items:flex-end;
+       justify-content:center;gap:18px;z-index:20}
+.brand img{width:132px;height:132px;border-radius:50%;display:block}
+.brand .nm{font-family:'KAI','KaiTi','STKaiti',serif;font-weight:700;font-size:44px;
+       line-height:.92;letter-spacing:3px;padding-bottom:2px}
+.stage{position:absolute;left:72px;top:274px;width:886px;height:1346px;z-index:10}
+.foot{position:absolute;left:72px;right:122px;top:1566px;z-index:10;
+      font-size:28px;letter-spacing:.06em;line-height:1.6;color:var(--l3)}
+.grain{position:absolute;inset:0;pointer-events:none;z-index:15;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:220px 220px}
+</style></head><body style="--bg:#FFFFFF;--l1:#111111;--l2:#4A4A4A;--l3:#767676;--em:#A8231A;--line:rgba(17,17,17,.12)">
+<div class="bgtone"></div><div style="position:absolute;left:260px;top:970px;width:560px;height:560px;border-radius:50%;border:1px solid #111111;opacity:0.08;z-index:2"></div><div style="position:absolute;left:72px;top:380px;width:100px;height:3px;background:#A8231A;opacity:0.55;z-index:3"></div><div style="position:absolute;left:195px;top:400px;width:12px;height:12px;border-radius:50%;background:#A8231A;opacity:0.75;z-index:3"></div><div style="position:absolute;left:180px;top:480px;width:150px;height:1px;background:#111111;opacity:0.20;transform:rotate(-28deg);transform-origin:left;z-index:2"></div><div class="brand"><img src="E:/心理咨询IP/04-工程/overlay_new/logo_corner.png" style=""><div class="nm" style="color:#4B3026">老蔡说</div></div>
+<div class="stage" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+  <div style="width:100%;height:1px;background:var(--line);position:absolute;top:0"
+       data-anim="grow" data-delay="0.13" data-dur="0.66" data-_w="886"></div>
+  
+  <div style="position:absolute;top:34px;left:0;display:flex;align-items:center;gap:18px"
+       data-anim="fadeIn" data-delay="2.37" data-dur="0.6" data-stagger="0.07">
+    <div style="font-size:30px;color:var(--em);letter-spacing:.22em">第 08 张</div>
+    <div style="width:64px;height:1px;background:var(--em);opacity:.6"></div>
+  </div>
+  <div style="font-size:54px;color:var(--l2);letter-spacing:.12em;
+       line-height:1.5;margin-bottom:64px;text-align:center"
+       data-anim="wipeU" data-delay="0.24" data-dur="0.5" data-stagger="0.045">闹钟响 什么都别想</div>
+  <div style="font-size:132px;line-height:1.16;letter-spacing:-0.025em;
+       text-align:center;max-width:100%"
+       data-anim="maskRise" data-delay="0.93" data-dur="0.85">就这三个字
+<span style="color:var(--em);font-weight:700;letter-spacing:-0.01em">我起来了</span></div>
+  <div style="width:120px;height:3px;background:var(--em);margin-top:70px"
+       data-anim="grow" data-delay="3.09" data-dur="0.65" data-_w="120"></div>
+</div><div class="foot" style="text-align:center;letter-spacing:3px;font-weight:400">正在学心理学的普通人<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--em);margin:0 16px 4px 16px;opacity:.85"></span>只说心事，不说教</div><div class="grain" style="opacity:.03"></div>
+<script>
+// 自适应：任何文字块超出容器就缩字号，保证不出安全区（董事长：字不能出屏、不能单字成行）
+(function(){
+  var stage=document.querySelector('.stage');
+  var W=stage.clientWidth, H=stage.clientHeight;
+  document.querySelectorAll('.stage [data-anim]').forEach(function(el){
+    var fs=parseFloat(getComputedStyle(el).fontSize);
+    for(var i=0;i<60 && fs>22;i++){
+      if(el.scrollWidth<=W+2 && el.scrollHeight<=H+2) break;
+      fs*=0.96; el.style.fontSize=fs+'px';
+    }
+  });
+})();
+</script>
+
+</body></html>

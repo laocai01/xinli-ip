@@ -1,0 +1,90 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+  @font-face{font-family:'Kai';src:local('KaiTi'),local('STKaiti'),local('楷体')}
+  html,body{margin:0;padding:0}
+  body{width:1080px;height:1920px;overflow:hidden;position:relative;
+       font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+       background:radial-gradient(120% 80% at 50% 12%, #FFFBF2 0%, #F8EFDD 42%, #EFE1C8 100%)}
+
+  .grain{position:absolute;inset:0;opacity:.30;mix-blend-mode:multiply;
+         background-image:repeating-linear-gradient(0deg, rgba(140,47,47,.045) 0 1px, transparent 1px 4px),
+                          repeating-linear-gradient(90deg, rgba(140,47,47,.035) 0 1px, transparent 1px 5px)}
+  .glow{position:absolute;left:50%;top:6%;width:1300px;height:1000px;transform:translateX(-50%);
+        background:radial-gradient(closest-side, rgba(255,215,150,.60), rgba(255,225,170,0) 70%)}
+
+  .frame{position:absolute;left:44px;top:44px;right:44px;bottom:44px;
+         border:4px dashed rgba(180,70,47,.50);border-radius:6px}
+  .frame2{position:absolute;left:64px;top:64px;right:64px;bottom:64px;
+          border:1px solid rgba(180,70,47,.18)}
+
+  /* ---- 顶部品牌条：固定 150-270，居中 ---- */
+  .brand{position:absolute;left:0;right:0;top:150px;height:120px;
+         display:flex;align-items:center;justify-content:center;gap:22px}
+  .brand img{width:104px;height:104px;display:block}
+  .brand .name{font-family:"Kai","KaiTi",serif;font-size:58px;font-weight:700;
+               color:#8C2F2F;letter-spacing:10px}
+  .rule{position:absolute;left:50%;top:302px;transform:translateX(-50%);
+        width:220px;height:6px;border-radius:3px;background:#C8552F;opacity:.70}
+
+  /* ---- 中部 ---- */
+  .stage{position:absolute;left:88px;right:88px;top:380px;height:850px;
+         display:flex;flex-direction:column;align-items:center;justify-content:center;
+         text-align:center;overflow:hidden}
+
+  /* 引子：素色，不用颜色（把颜色让给焦点） */
+  .kicker{font-family:"Kai","KaiTi",serif;font-size:54px;font-weight:600;
+          color:#A08B72;letter-spacing:12px;margin-bottom:38px}
+
+  /* 主钩子：全素色，只有 em 是唯一焦点 */
+  .big{font-family:"Kai","KaiTi",serif;font-weight:700;color:#3A3530;
+       font-size:132px;line-height:1.26;letter-spacing:4px;
+       text-shadow:0 3px 0 rgba(255,255,255,.55)}
+  .big em{font-style:normal;color:#D64B1E;
+          background:linear-gradient(transparent 62%, rgba(214,75,30,.22) 62%);
+          padding:0 6px}
+
+  .dotline{margin-top:36px;display:flex;align-items:center;gap:22px}
+  .dotline i{display:block;width:14px;height:14px;border-radius:50%;background:#C9B79C}
+  .dotline span{display:block;width:110px;height:3px;background:rgba(160,139,114,.35);border-radius:2px}
+
+  /* 辅助句：全素色 */
+  .punch{margin-top:36px;font-family:"Kai","KaiTi",serif;font-weight:700;
+         font-size:58px;color:#6B6259;letter-spacing:3px;line-height:1.44}
+
+  /* ---- 底部 ---- */
+  .bottom{position:absolute;left:0;right:0;top:1290px;height:300px;
+          display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
+  .hint{font-family:"Kai","KaiTi",serif;font-size:50px;font-weight:700;color:#8C2F2F;
+        letter-spacing:4px;border-top:2px solid rgba(180,70,47,.28);
+        border-bottom:2px solid rgba(180,70,47,.28);padding:18px 40px}
+  .sign{margin-top:28px;font-size:29px;color:#8A7864;letter-spacing:2px}
+  .sign .d{display:inline-block;width:10px;height:10px;border-radius:50%;
+           background:#E08A3C;margin:0 14px 3px 14px}
+
+  .safe{position:absolute;left:0;right:0;bottom:0;height:300px}
+</style></head>
+<body>
+  <div class="glow"></div>
+  <div class="grain"></div>
+  <div class="frame"></div>
+  <div class="frame2"></div>
+
+  <div class="brand">
+    <img src="__LOGO__">
+    <div class="name">老蔡说</div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="stage">
+    <div class="kicker">睡前又想了一百遍</div>
+    <div class="big">越想越难受的人<br>都栽在<em>同一件事</em>上</div>
+    <div class="dotline"><span></span><i></i><span></span></div>
+    <div class="punch">一件事翻来覆去想<br>问题一个都没解决</div>
+  </div>
+
+  <div class="bottom">
+    <div class="hint">我把学到的东西，分享给你</div>
+    <div class="sign">正在学心理学的普通人<span class="d"></span>只说心事，不说教</div>
+  </div>
+  <div class="safe"></div>
+</body></html>

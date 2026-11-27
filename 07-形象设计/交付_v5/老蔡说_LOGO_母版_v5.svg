@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================================
+     老蔡说 · IP LOGO 矢量母版 v5.0（2026-10-06 董事长定稿）
+     样式：米黄底 + 朱红「不规则断线框」（断法3：长短错落）
+           楷体靠右竖排 ｜ 小字「老蔡」深墨蓝 ｜ 大字「说」亮橘
+           左中圆点亮橙
+     配色：米黄底 #F7F1E6 ｜ 深墨蓝字 #1B2A41 ｜ 亮橘说字 #FF6B00
+           亮橙圆点 #FF9F1C ｜ 朱红框 #B23A2E
+
+     ★ 设计意图（董事长指定）：
+       方框四条边独立断开、长短错落，像随手画的一圈 —— 不靠圆形裁切，
+       方形状态下看也是断的。寓意：规矩不必完整，留白才是气口。
+
+     规格：1080×1080 画布（SVG viewBox 0 0 1000 1000，按 0.1 比例换算）
+     ============================================================ -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+
+  <!-- 底色：米黄 -->
+  <rect width="1000" height="1000" fill="#F7F1E6"/>
+
+  <!-- 朱红不规则断线框（断法3：四条边长短错落、位置微错）
+       对应样板 viewBox 100 的数据 ×10：
+        上边  M8,12  H80   -> M80,120  H800
+        右边  M88,26 V88   -> M880,260 V880
+        下边  M20,90 H72   -> M200,900 H720
+        左边  M12,70 V22   -> M120,700 V220
+  -->
+  <g stroke="#B23A2E" stroke-width="20" fill="none">
+    <path d="M80 120 H800"/>
+    <path d="M880 260 V880"/>
+    <path d="M200 900 H720"/>
+    <path d="M120 700 V220"/>
+  </g>
+
+  <!-- 竖排文字：靠右竖排 -->
+  <g font-family="KaiTi, SimKai, serif" text-anchor="middle">
+    <!-- 老 -->
+    <text x="640" y="250" font-size="175" fill="#1B2A41"
+          stroke="#1B2A41" stroke-width="10" stroke-linejoin="round">老</text>
+    <!-- 蔡 -->
+    <text x="640" y="430" font-size="175" fill="#1B2A41"
+          stroke="#1B2A41" stroke-width="10" stroke-linejoin="round">蔡</text>
+    <!-- 说（最大，亮橘） -->
+    <text x="610" y="790" font-size="330" fill="#FF6B00"
+          stroke="#FF6B00" stroke-width="14" stroke-linejoin="round">说</text>
+  </g>
+
+  <!-- 亮橙圆点（左侧留白处，对齐"老"字） -->
+  <circle cx="330" cy="250" r="68" fill="#FF9F1C"/>
+
+</svg>

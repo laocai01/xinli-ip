@@ -1,0 +1,93 @@
+Traceback (most recent call last):
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_transports\default.py", line 98, in map_httpcore_exceptions
+    yield
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_transports\default.py", line 245, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_sync\connection_pool.py", line 242, in handle_request
+    raise exc from None
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_sync\connection_pool.py", line 224, in handle_request
+    response = connection.handle_request(pool_request.request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_sync\connection.py", line 94, in handle_request
+    raise exc
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_sync\connection.py", line 74, in handle_request
+    stream = self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_sync\connection.py", line 117, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_backends\sync.py", line 203, in connect_tcp
+    with map_exceptions(exc_map):
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\工具环境\whisper\Lib\site-packages\httpcore2\_exceptions.py", line 17, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore2.ConnectTimeout: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\_snapshot_download.py", line 279, in snapshot_download
+    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\hf_api.py", line 3509, in repo_info
+    return method(
+           ^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\hf_api.py", line 3188, in model_info
+    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_client.py", line 1113, in get
+    return self.request(
+           ^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_client.py", line 797, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_client.py", line 980, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_client.py", line 1008, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_client.py", line 1043, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_client.py", line 1076, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_transports\default.py", line 244, in handle_request
+    with map_httpcore_exceptions():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "E:\工具环境\whisper\Lib\site-packages\httpx2\_transports\default.py", line 115, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx2.ConnectTimeout: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "E:\工具环境\whisper\Lib\site-packages\faster_whisper\transcribe.py", line 681, in __init__
+    model_path = download_model(
+                 ^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\faster_whisper\utils.py", line 116, in download_model
+    return huggingface_hub.snapshot_download(repo_id, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\utils\_http.py", line 276, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\工具环境\whisper\Lib\site-packages\huggingface_hub\_snapshot_download.py", line 400, in snapshot_download
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: Got: ConnectTimeout: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+An error happened while trying to locate the files on the Hub, and we cannot find the appropriate snapshot folder for the specified revision on the local disk. Please check your internet connection and try again.

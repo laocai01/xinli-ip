@@ -1,0 +1,290 @@
+"""★ 成片合成器 v3（2026-10-08 董事长定稿架构）
+用法: python make_episode.py <配置名...>
+
+★ 核心架构（修正 v2 的错误）：
+  真人视频是「主轴」，全程连续播放不中断；
+  卡片「盖」在真人画面上播完，播完自动露出真人 —— 卡片不占时间轴，不切碎讲话。
+
+  时间轴：封面8s → [真人主轴（连续）………………] → 闭环8s
+                  ↑ 卡片在口播关键句时刻盖上，盖完自动露出真人（声音全程不断）
+
+★ 规格（董事长定）：
+  · 封面停留 8 秒、穿插卡片停留 6 秒、闭环页停留 8 秒
+  · 卡片张数＝按脚本定（停/退/看/做就是四张），不为凑占比增删
+  · 卡片左上角不叠 LOGO（中间品牌条已有）；真人段叠 LOGO(44,70)
+  · AI声明(672,1818) 全程叠
+  · BGM 温柔轻音乐 -23dB，不压口播
+  · 原声一秒不剪，只 atempo 变速（不变调）
+  · 1080x1920 / 30fps / CRF17 / yuv420p / AAC192k
+"""
+import os, sys, subprocess, glob, json, io
+
+FF = r"C:/Users/Dell/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-9.0.1-full_build/bin/ffmpeg.exe"
+ANIM = r"E:/心理咨询IP/07-形象设计/卡片v2/动画"
+LOGO = r"E:/心理咨询IP/04-工程/overlay_new/logo_corner.png"
+NOTICE = r"E:/心理咨询IP/04-工程/overlay_new/ai_notice.png"
+MUSDIR = r"E:/心理咨询IP/06-音乐/温柔轻音乐_新"
+OUTDIR = r"E:/心理咨询IP/05-成片"
+
+COVER_DUR = 1.5        # ★ 2026算法：封面闪电版 1.5 秒（原 8s 导致前 8 秒无理由留下）
+CARD_ANIM_DUR = 1.4    # 卡片动画（分层播完）
+CARD_HOLD = 4.6        # ★ 卡片停留（动画2+停留4=合计6秒）
+CARD_GAP = 1.0         # ★ 卡片之间至少露真人 1 秒（避免连成一片）
+END_ANIM_DUR = 5.0     # 闭环页动画
+END_HOLD = 8.0         # ★ 闭环页停留 8 秒
+BGM_DB = -32.0         # （旧）固定值，已不用
+BGM_BELOW_VOICE = 10.0 # ★ BGM 比人声低多少 dB（用户 2026-10-08 选定：10dB，氛围强）
+BGM_NORM_DB = -20.0    # （保留）
+VOICE_TARGET_DB = -18.0  # ★ 人声目标响度（素材提升后约在此）
+VOICE_DB = 6.0         # ★ 人声提升（补偿素材电平偏低，主观清晰）
+
+# 每讲配置：素材/总长/倍率/封面/BGM/卡表(卡名, 卡点原片秒)/输出名
+# 卡点=该卡片应出现的口播关键句（原片秒）；闭环卡卡点填 0（固定放片尾）
+EPISODES = {
+    "A2": dict(src=r"E:/心理咨询IP/素材/A线/A2_raw.mp4", total=121.21, speed=1.00,
+               cover="封面_新_第1讲_动画.mp4", bgm="BGM01_Saying_Goodbye.mp3",
+               cards=[("A2n_01钩子_动画.mp4", 26.2), ("A2n_02痛点_动画.mp4", 44.5),
+                      ("A2n_03机制_动画.mp4", 50.1), ("A2n_04转折_动画.mp4", 70.3),
+                      ("A2n_05方法_动画.mp4", 77.3), ("A2n_06收束_动画.mp4", 95.3),
+                      ("闭环_第1讲_动画.mp4", 0)],
+               out="第03条_A线第1讲_想开点.mp4"),
+    "A3": dict(src=r"E:/心理咨询IP/素材/A线/A3.mp4", total=96.40, speed=1.00,
+               cover="封面_新_第2讲_动画.mp4", bgm="BGM02_Galaxys_Endless_Expanse.mp3",
+               cards=[("A3n_01钩子_动画.mp4", 3.0),  ("A3n_02总览_动画.mp4", 19.0),
+                      ("A3n_03停_动画.mp4", 30.0),  ("A3n_04退_动画.mp4", 41.0),
+                      ("A3n_05看_动画.mp4", 52.0),  ("A3n_06做_动画.mp4", 63.0),
+                      ("A3n_07收束_动画.mp4", 78.0),("闭环_第2讲_动画.mp4", 0)],
+               out="第04条_A线第2讲_情绪四步.mp4"),
+    "B1": dict(src=r"E:/心理咨询IP/素材/B线/B1.mp4", total=165.80, speed=1.15,
+               cover="B1封面_第1讲_动画.mp4", bgm="BGM03_Broken_Inside.mp3",
+               cards=[("B1n_01钩子_动画.mp4", 81.6), ("B1n_02场景_动画.mp4", 89.6),
+                      ("B1n_03机制_动画.mp4", 103.6),("B1n_04点破_动画.mp4", 116.6),
+                      ("B1n_05转折_动画.mp4", 123.6),("B1n_06方法_动画.mp4", 129.6),
+                      ("B1n_07收束_动画.mp4", 140.0),("闭环_第3讲_动画.mp4", 0)],
+               out="第05条_B线第1讲_追与躲.mp4"),
+    "B2": dict(src=r"E:/心理咨询IP/素材/B线/B2.mp4", total=82.90, speed=1.00,
+               cover="B2封面_第2讲_动画.mp4", bgm="BGM04_Upon_Reflection.mp3",
+               cards=[("B2n_01钩子_动画.mp4", 1.1),  ("B2n_02痛点_动画.mp4", 8.1),
+                      ("B2n_03机制_动画.mp4", 23.1), ("B2n_04对比_动画.mp4", 35.5),
+                      ("B2n_05方法_动画.mp4", 48.1), ("B2n_06收束_动画.mp4", 58.1),
+                      ("闭环_第4讲_动画.mp4", 0)],
+               out="第06条_B线第2讲_你总是.mp4"),
+    # ★★ 2026-10-08 新四条（A4/A5/B3/B4）—— 卡点按口播逐句对齐，闭环页放片尾
+    "A4": dict(src=r"E:/心理咨询IP/素材/A线/A4.mp4", total=110.30, speed=1.00, voice_end=97.0,
+               cover="封面A4_动画.mp4", bgm="BGM01_Saying_Goodbye.mp3",
+               cards=[("A4n_01钩子_动画.mp4", 1.1), ("A4n_02反常识_动画.mp4", 9.1),
+                      ("A4n_03方法_动画.mp4", 34.1), ("A4n_04金句_动画.mp4", 71.6),
+                      ("闭环A4_动画.mp4", 0)],
+               out="第07条_A线第3讲_越想开越堵_20261008.mp4"),
+    "A5": dict(src=r"E:/心理咨询IP/素材/A线/A5.mp4", total=117.60, speed=1.00, voice_end=99.0,
+               cover="封面A5_动画.mp4", bgm="BGM02_Galaxys_Endless_Expanse.mp3",
+               cards=[("A5n_01钩子_动画.mp4", 1.9), ("A5n_02具象_动画.mp4", 18.4),
+                      ("A5n_03核心_动画.mp4", 34.0), ("A5n_04方法_动画.mp4", 59.9),
+                      ("闭环A5_动画.mp4", 0)],
+               out="第08条_A线第4讲_一点就炸_20261008.mp4"),
+    # ★ 正片止于 92.5s（之后是冗余签名段"大家好我是老蔡"，新算法禁止，截掉）
+    "B3": dict(src=r"E:/心理咨询IP/素材/B线/B3.mp4", total=106.70, speed=1.00, voice_end=90.5,
+               cover="封面B3_动画.mp4", bgm="BGM03_Broken_Inside.mp3",
+               cards=[("B3n_01钩子_动画.mp4", 0.9), ("B3n_02痛点_动画.mp4", 16.0),
+                      ("B3n_03方法_动画.mp4", 32.2), ("B3n_04关键_动画.mp4", 43.3),
+                      ("B3n_05具象_动画.mp4", 60.5), ("闭环B3_动画.mp4", 0)],
+               out="第09条_B线第3讲_躲的人说什么_20261008.mp4"),
+    # ★ 正片止于 93.0s（之后是冗余签名段，截掉）
+    "B4": dict(src=r"E:/心理咨询IP/素材/B线/B4.mp4", total=107.30, speed=1.00, voice_end=92.0,
+               cover="封面B4_动画.mp4", bgm="BGM04_Upon_Reflection.mp3",
+               cards=[("B4n_01钩子_动画.mp4", 0.7), ("B4n_02反常识_动画.mp4", 18.1),
+                      ("B4n_03具象_动画.mp4", 28.8), ("B4n_04方法_动画.mp4", 50.9),
+                      ("B4n_05金句_动画.mp4", 71.3), ("闭环B4_动画.mp4", 0)],
+               out="第10条_B线第4讲_大脑断线_20261008.mp4"),
+}
+
+
+def _rms_db(path, ss=20.0, dur=6.0):
+    """测音频片段的 RMS 响度(dB)，用于 BGM 自动归一化"""
+    import subprocess as _sp, wave as _wv, numpy as _np, os as _os, tempfile as _tf
+    tmp = _os.path.join(_tf.gettempdir(), "_hermes_rms.wav")
+    _sp.run([FF, "-y", "-v", "error", "-ss", str(ss), "-i", path, "-t", str(dur),
+             "-ac", "1", "-ar", "16000", tmp], capture_output=True, timeout=60)
+    if not _os.path.exists(tmp) or _os.path.getsize(tmp) < 1000:
+        return -30.0
+    with _wv.open(tmp, "rb") as f:
+        d = _np.frombuffer(f.readframes(f.getnframes()), dtype=_np.int16).astype(float)
+    r = _np.sqrt((d ** 2).mean()) if len(d) else 0
+    return 20 * _np.log10(r / 32768) if r > 0 else -60.0
+
+
+def build(key):
+    cfg = EPISODES[key]
+    SRC, TOTAL_RAW, SPEED = cfg["src"], cfg["total"], cfg["speed"]
+    OUT = os.path.join(OUTDIR, cfg["out"])
+    TOTAL = TOTAL_RAW / SPEED          # 素材变速后时长（真人主轴长度）
+    WIN = CARD_ANIM_DUR + CARD_HOLD    # 每张卡的覆盖窗口
+    END_WIN = END_ANIM_DUR + END_HOLD
+
+    # ============ 时间轴：真人主轴连续，卡片只是"盖"上去 ============
+    # ★ 卡片时刻从 cue/cards_cue.json 读（已按口播逐句对齐 + 不重叠）
+    CUE = json.load(io.open(r"E:/心理咨询IP/04-工程/cue/cards_cue.json", encoding="utf-8"))
+    overlay_cards, closing = [], None
+    for cf, t_raw in cfg["cards"]:
+        if "闭环" in cf:
+            closing = cf
+        else:
+            cue = CUE.get(cf.replace("_动画.mp4",""))
+            t = cue["at"] if cue else t_raw
+            overlay_cards.append((cf, t))
+    overlay_cards.sort(key=lambda x: x[1])       # 按时刻排序
+    # 卡片盖上时刻须留出完整窗口（不让它越过主轴末尾）
+    last_start = TOTAL - WIN - 1.5
+
+    # ★ 真人主轴只播到"人声真正结束"（cfg["voice_end"]），避免片尾空转/冷场
+    _ve = cfg.get("voice_end")
+    if _ve and _ve < TOTAL:
+        print(f"  ★ 人声结束 {_ve:.2f}s < 素材 {TOTAL:.2f}s → 主轴截断，丢弃尾部 {TOTAL-_ve:.2f}s")
+        TOTAL_RAW = _ve * SPEED      # 视频/音轨只取到这里
+        TOTAL = _ve
+    total_dur = COVER_DUR + TOTAL + (END_WIN if closing else 0)
+    main_start, main_end = COVER_DUR, COVER_DUR + TOTAL
+
+    print(f"=== {key} 时间轴（真人主轴连续，卡片覆盖不切碎讲话）===")
+    print(f"  封面      0.00 - {COVER_DUR:7.2f} ({COVER_DUR:5.2f}s)   画面=封面，口播继续")
+    # ★ 卡片窗口不重叠：后一张开始时刻 = max(脚本卡点, 前一张结束 + 间隔)
+    placed, prev_end = [], None
+    for cf, t_raw in overlay_cards:
+        t = main_start + min(t_raw / SPEED, last_start)
+        if prev_end is not None and t < prev_end + CARD_GAP:
+            t = prev_end + CARD_GAP          # 顺延，保证卡片之间露出真人
+        t = min(t, main_end - WIN)           # 不越过主轴末尾
+        placed.append((cf, t))
+        prev_end = t + WIN
+    for cf, t in placed:
+        print(f"  卡(盖)  {t:7.2f} - {t + WIN:7.2f} ({WIN:5.2f}s)  {os.path.basename(cf)}")
+    print(f"  真人主轴  {main_start:7.2f} - {main_end:7.2f} ({TOTAL:5.2f}s)  ← 全程连续，声音不断")
+    if closing:
+        print(f"  闭环    {main_end:7.2f} - {total_dur:7.2f} ({END_WIN:5.2f}s)")
+    cover_s = sum(min(WIN, max(0, (placed[i+1][1] if i+1 < len(placed) else main_end) - t))
+                  for i, (cf, t) in enumerate(placed))
+    print(f"总时长 {total_dur:.2f}s  真人画面 {main_end - main_start - cover_s:.1f}s"
+          f"({(main_end - main_start - cover_s)/total_dur*100:.0f}%)  "
+          f"卡片 {len(cfg['cards'])} 张（按脚本）")
+
+    # ============ 输入 ============
+    inputs = ["-i", SRC]
+    ci = {}
+    for cf, _ in cfg["cards"]:
+        if cf not in ci:
+            ci[cf] = len(inputs) // 2
+            inputs += ["-i", os.path.join(ANIM, cf)]
+    cover_i = len(inputs) // 2
+    inputs += ["-i", os.path.join(ANIM, cfg["cover"])]
+    inputs += ["-i", LOGO, "-i", NOTICE]
+    LI = len(inputs) // 2 - 2; NI = LI + 1
+    bgm_path = os.path.join(MUSDIR, cfg["bgm"])
+    has_bgm = os.path.exists(bgm_path)
+    if has_bgm:
+        BI = len(inputs) // 2
+        inputs += ["-stream_loop", "-1", "-i", bgm_path]
+    print(f"BGM: {cfg['bgm']} {'✅' if has_bgm else '❌ 缺文件'}  {BGM_DB}dB")
+
+    parts = []
+
+    # ---- ① 真人主轴（整条连续，段内叠 LOGO）----
+    parts.append(f"[0:v]trim=start=0:end={TOTAL_RAW},setpts=(PTS-STARTPTS)/{SPEED},"
+                 f"fps=30,scale=1080:1920:force_original_aspect_ratio=increase,"
+                 f"crop=1080:1920,setsar=1[hv];[hv][{LI}:v]overlay=44:70[base]")
+
+    # ---- ② 卡片盖到真人上（enable 限窗口；卡片本身不叠 LOGO）----
+    cur = "base"
+    for n, (cf, t) in enumerate(placed):          # ★ 用排布后的时刻，与时间轴打印一致
+        i = ci[cf]
+        # ★★★ PTS 分两步：先 N/(30*TB) 归一（统一时基），再单独 setpts 偏移
+        #     ——直接写 PTS-STARTPTS+大偏移会让 ffmpeg 时基溢出，静默截断后续链（闭环被吞）
+        parts.append(f"[{i}:v]trim=start=0:end={CARD_ANIM_DUR},setpts=N/(30*TB),fps=30,"
+                     f"scale=1080:1920,setsar=1[c{n}a];"
+                     f"[{i}:v]trim=start={CARD_ANIM_DUR-0.05:.2f}:end={CARD_ANIM_DUR},"
+                     f"setpts=N/(30*TB),fps=30,"
+                     f"scale=1080:1920,setsar=1,"
+                     f"tpad=stop_mode=clone:stop_duration={CARD_HOLD:.2f}[c{n}b];"
+                     f"[c{n}a][c{n}b]concat=n=2:v=1:a=0[card{n}r];"
+                     f"[card{n}r]setpts=PTS-STARTPTS+{t:.3f}/TB[card{n}]")
+        parts.append(f"[{cur}][card{n}]overlay=0:0:enable='between(t,{t:.3f},{t+WIN:.3f})'[o{n}]")
+        cur = f"o{n}"
+
+    # ---- ③ ★ 封面"接"在主轴前面（concat，不 overlay）----
+    #   原因：overlay 不改变视频总时长 → 视频会比音频短 COVER_DUR 秒（末尾黑屏/卡帧）
+    #   改为 concat：主轴整体后移 COVER_DUR，画面与声音严格等长
+    _cf = max(0.0, COVER_DUR - 0.05)
+    parts.append(f"[{cover_i}:v]trim=start=0:end={COVER_DUR},setpts=PTS-STARTPTS,fps=30,"
+                 f"scale=1080:1920,setsar=1[cova];"
+                 f"[{cover_i}:v]trim=start={_cf:.2f}:end={COVER_DUR},setpts=PTS-STARTPTS,fps=30,"
+                 f"scale=1080:1920,setsar=1,tpad=stop_mode=clone:stop_duration=0.05[covb];"
+                 f"[cova][covb]concat=n=2:v=1:a=0[coverv0];"
+                 f"[coverv0]trim=start=0:end={COVER_DUR},setpts=PTS-STARTPTS[coverv];"
+                 f"[coverv][{cur}]concat=n=2:v=1:a=0[vcover]")
+
+    # ---- ④ 闭环页追加在最末（★ 用 overlay+延长，不用 concat，避免时长不匹配静默丢段）----
+    if closing:
+        k = ci[closing]
+        # a) 闭环动画 0→END_ANIM_DUR，PTS 平移到主轴末尾之后
+        parts.append(f"[{k}:v]trim=start=0:end={END_ANIM_DUR},setpts=PTS-STARTPTS+{main_end:.3f}/TB,"
+                     f"fps=30,scale=1080:1920,setsar=1[enda];"
+                     # b) 末帧克隆补足 END_HOLD
+                     f"[{k}:v]trim=start={END_ANIM_DUR-0.05:.2f}:end={END_ANIM_DUR},"
+                     f"setpts=PTS-STARTPTS+{main_end+END_ANIM_DUR-0.05:.3f}/TB,"
+                     f"fps=30,scale=1080:1920,setsar=1,"
+                     f"tpad=stop_mode=clone:stop_duration={END_HOLD:.2f}[endb];"
+                     f"[enda][endb]concat=n=2:v=1:a=0[endv];"
+                     # c) 主轴先 tpad 补足 13s 黑底，再 overlay 闭环（闭环本身是全屏不透明）
+                     f"[vcover]tpad=stop_mode=add:color=black:stop_duration={END_WIN:.2f}[vcpad];"
+                     f"[vcpad][endv]overlay=0:0:eof_action=repeat[vpo];"
+                     f"[vpo]trim=start=0:end={total_dur:.3f},setpts=PTS-STARTPTS[vc]")
+    else:
+        parts.append("[vcover]null[vc]")
+
+    # ---- ⑤ AI 声明（全程）----
+    parts.append(f"[vc][{NI}:v]overlay=672:1818[vout]")
+
+    # ============ 音轨（★ PTS 归零 + 人声不被 amix 衰减）============
+    # 人声提到 -20dB（清晰主体），BGM -23dB（衬底），amix=normalize=0 不做 1/N 衰减
+    parts.append(f"[0:a]atrim=start=0:end={TOTAL_RAW},asetpts=PTS-STARTPTS,atempo={SPEED},"
+                 f"volume={VOICE_DB}dB,apad,atrim=start=0:end={total_dur:.3f},"
+                 f"asetpts=PTS-STARTPTS,aresample=48000[voice]")
+    if has_bgm:
+        # ★ BGM 响度自动归一化：先测 BGM 自身响度，再按"比人声低 N dB"设定
+        bdb = _rms_db(bgm_path, 20.0)
+        # 人声目标响度（与 VOICE_DB 提升后一致 ≈ -18dB）
+        bgm_gain = (VOICE_TARGET_DB - BGM_BELOW_VOICE) - bdb   # BGM 目标 = 人声目标 - 10dB
+        print(f"    BGM响度 {bdb:.1f}dB → 增益 {bgm_gain:+.1f}dB（比人声低{BGM_BELOW_VOICE:.0f}dB）")
+        parts.append(f"[{BI}:a]atrim=start=20:end={20+total_dur:.3f},asetpts=PTS-STARTPTS,"
+                     f"volume={bgm_gain:.1f}dB,aresample=48000[bgm];"
+                     f"[voice][bgm]amix=inputs=2:duration=longest:dropout_transition=0:normalize=0,"
+                     f"asetpts=PTS-STARTPTS,atrim=start=0:end={total_dur:.3f},"
+                     f"alimiter=limit=0.95[aout]")
+    else:
+        parts.append("[voice]alimiter=limit=0.95[aout]")
+
+    cmd = [FF, "-y"] + inputs + ["-filter_complex", ";".join(parts),
+        "-map", "[vout]", "-map", "[aout]", "-t", f"{total_dur:.3f}",
+        "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-maxrate", "14M", "-bufsize", "28M",
+        "-pix_fmt", "yuv420p", "-r", "30",
+        "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", OUT]
+
+    print(f"\n=== 合成 {key} ===")
+    r = subprocess.run(cmd, capture_output=True, text=True, errors="ignore")
+    if r.returncode != 0:
+        print("exit:", r.returncode); print(r.stderr[-3000:]); return False
+    print("OK ->", OUT, os.path.getsize(OUT) // 1024 // 1024, "MB")
+
+    # 清理同讲旧版
+    for f in glob.glob(os.path.join(OUTDIR, "*.mp4")):
+        b = os.path.basename(f)
+        if b == cfg["out"]: continue
+        if b[:4] == cfg["out"][:4] and b[:4].startswith("第"):
+            try: os.remove(f); print("  🗑 已清理旧版:", b)
+            except Exception: pass
+    return True
+
+
+if __name__ == "__main__":
+    keys = sys.argv[1:] if len(sys.argv) > 1 else list(EPISODES)
+    for k in keys:
+        build(k)

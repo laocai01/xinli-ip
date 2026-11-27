@@ -1,0 +1,74 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+YCbCr Matrix: TV.709
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Ref,DouyinSansBold,96,&H0066E0FF,&H001A7AFF,&H002A1A08,&HCC000000,-1,0,0,0,100,100,2.2,0,1,9.5,8.5,2,58,40,320,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 2,0:00:00.63,0:00:08.53,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}当孩子跟你说我不想上学了
+Dialogue: 2,0:00:04.41,0:00:10.65,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}那你第一句话会说什么呢
+Dialogue: 2,0:00:06.50,0:00:12.98,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}他说我不想上学你第一句
+Dialogue: 2,0:00:08.60,0:00:15.34,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}说什么决定了后面的全部
+Dialogue: 2,0:00:10.70,0:00:17.42,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}他说我不想上学了你第一句
+Dialogue: 2,0:00:13.05,0:00:19.38,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}说什么呢决定你后面的全部
+Dialogue: 2,0:00:15.39,0:00:21.44,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs62}这个后面呢是他愿不愿意再把
+Dialogue: 2,0:00:17.49,0:00:23.38,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}他后面想说的话再说给你听
+Dialogue: 2,0:00:19.43,0:00:27.92,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}会不会愿意坐下来静下心来
+Dialogue: 2,0:00:21.51,0:00:30.65,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}好好跟你的沟通跟你聊天
+Dialogue: 2,0:00:24.34,0:00:34.29,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs48}所以你想想那天早上他闷闷地说肚子疼
+Dialogue: 2,0:00:27.97,0:00:37.92,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs51}你说怎么那么巧一到上学你就肚子疼
+Dialogue: 2,0:00:30.70,0:00:41.08,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs46}不是这疼就那疼他不说话了背着书包走了
+Dialogue: 2,0:00:34.34,0:00:44.29,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs51}你有没有想过那天说的可能是真的呢
+Dialogue: 2,0:00:37.97,0:00:48.83,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs54}有一种肚子疼是从心理发出来的我
+Dialogue: 2,0:00:41.15,0:00:51.54,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs54}认识一个爸爸他儿子出问题那一年
+Dialogue: 2,0:00:44.34,0:00:54.29,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs48}连着说了一个星期不想上学他一开始骂
+Dialogue: 2,0:00:48.88,0:00:56.54,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}后来打后来求他说他最后
+Dialogue: 2,0:00:51.61,0:00:58.83,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}悔的是那天早上的一句话
+Dialogue: 2,0:00:54.34,0:01:02.90,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}他儿子说我不想上学了他
+Dialogue: 2,0:00:56.61,0:01:07.01,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}问一句你不上学你想干嘛
+Dialogue: 2,0:00:58.88,0:01:10.65,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs51}后来他说他儿子那天的表情他记到现
+Dialogue: 2,0:01:02.97,0:01:14.29,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs48}在就低着头什么都不说不是孩子没话说
+Dialogue: 2,0:01:07.06,0:01:20.29,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs48}是他知道说了也没用你以为他是在偷懒
+Dialogue: 2,0:01:10.70,0:01:26.10,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}其实不是我不想上学这句话
+Dialogue: 2,0:01:14.34,0:01:23.99,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs46}他说出口是费了很大劲也是下了很大决心
+Dialogue: 2,0:01:23.99,0:01:28.81,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}的一个孩子不会随随
+Dialogue: 2,0:01:20.36,0:01:28.11,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs46}便便去说这句话的他说出来的时候他其实
+Dialogue: 2,0:01:28.11,0:01:31.56,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}是想说我撑不住了
+Dialogue: 2,0:01:26.15,0:01:36.10,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}你能不能接我一下你回
+Dialogue: 2,0:01:28.88,0:01:40.65,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}他一句不上学你能干嘛
+Dialogue: 2,0:01:31.61,0:01:44.29,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs46}他就学会了下次不说不代表不想，就好了
+Dialogue: 2,0:01:36.15,0:01:48.83,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs51}只是从那天起你就不在这件事里面了
+Dialogue: 2,0:01:40.70,0:01:52.47,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}第一句这样说行我知道了
+Dialogue: 2,0:01:44.34,0:01:55.20,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs46}那我们今天先不去你先答应他让他松口气
+Dialogue: 2,0:01:48.88,0:01:57.01,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs58}不是真让他天天不去是让他知道
+Dialogue: 2,0:01:52.52,0:02:00.63,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}跟你说这句话天塌不下来
+Dialogue: 2,0:01:55.25,0:02:04.29,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}然后你再问他三个问题
+Dialogue: 2,0:01:57.06,0:02:08.83,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs58}第一个你是从哪天开始不想去的
+Dialogue: 2,0:02:00.70,0:02:09.88,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs58}不要问为什么第二个是上课难受
+Dialogue: 2,0:02:04.34,0:02:11.56,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs46}还是哪个人哪个老师哪位同学让你不舒服
+Dialogue: 2,0:02:08.88,0:02:14.29,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}第三句你说
+Dialogue: 2,0:02:09.93,0:02:16.10,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}你说话的时候是不是怕我
+Dialogue: 2,0:02:11.61,0:02:18.83,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs62}这三个问题你不用一次性问完
+Dialogue: 2,0:02:14.34,0:02:22.47,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}也不用当天问完
+Dialogue: 2,0:02:16.15,0:02:26.10,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}你先别急着去解决上学的事
+Dialogue: 2,0:02:18.88,0:02:28.83,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs58}你先把那个不想上学的孩子接住
+Dialogue: 2,0:02:22.52,0:02:31.56,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}记住一句话先接住人再说事
+Dialogue: 2,0:02:26.15,0:02:34.29,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}我跟你讲上学这件事呢
+Dialogue: 2,0:02:28.88,0:02:37.01,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}后面肯定是有办法
+Dialogue: 2,0:02:31.61,0:02:38.83,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)\fs54}可能要是那天早上把他给推回去了
+Dialogue: 2,0:02:34.34,0:02:41.56,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)\fs58}他就不再想跟你说了你自己掂量
+Dialogue: 2,0:02:37.06,0:02:43.38,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}说到底也就是一句话
+Dialogue: 2,0:02:38.88,0:02:46.10,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}先接住不想上学这句话
+Dialogue: 2,0:02:41.61,0:02:47.92,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}别急着讲道理
+Dialogue: 2,0:02:43.43,0:02:49.74,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)\fs58}把这条转给孩子正上初中的家长
+Dialogue: 2,0:02:46.15,0:02:51.56,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}他可能正需要这一句
+Dialogue: 2,0:02:47.97,0:02:53.38,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1512)\fad(80,120)}关注我评论区跟我说一句
+Dialogue: 2,0:02:49.79,0:02:53.38,Ref,,0,0,0,,{\an1\1c&H001A7AFF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1424)\fad(80,120)}你孩子说过不想上学吗
+Dialogue: 2,0:02:51.61,0:02:53.43,Ref,,0,0,0,,{\an1\1c&H0066E0FF&\3c&H2A1A08&\bord9.5\shad8.5\pos(58,1600)\fad(80,120)}你当时是怎么回答的

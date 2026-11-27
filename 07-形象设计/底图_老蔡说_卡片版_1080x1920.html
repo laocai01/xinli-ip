@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+  @font-face{font-family:'Kai';src:local('KaiTi'),local('STKaiti'),local('楷体')}
+  html,body{margin:0;padding:0}
+  body{width:1080px;height:1920px;overflow:hidden;position:relative;
+       font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+       background:radial-gradient(120% 80% at 50% 12%, #FFFBF2 0%, #F8EFDD 42%, #EFE1C8 100%)}
+
+  /* 极淡纸纹 */
+  .grain{position:absolute;inset:0;opacity:.30;mix-blend-mode:multiply;
+         background-image:repeating-linear-gradient(0deg, rgba(140,47,47,.045) 0 1px, transparent 1px 4px),
+                          repeating-linear-gradient(90deg, rgba(140,47,47,.035) 0 1px, transparent 1px 5px)}
+
+  /* 暖光晕 */
+  .glow{position:absolute;left:50%;top:8%;width:1200px;height:900px;transform:translateX(-50%);
+        background:radial-gradient(closest-side, rgba(255,225,170,.55), rgba(255,225,170,0) 70%)}
+
+  /* 朱红断线框 */
+  .frame{position:absolute;left:56px;top:56px;right:56px;bottom:56px;
+         border:3px dashed rgba(180,70,47,.42);border-radius:6px}
+  .frame2{position:absolute;left:74px;top:74px;right:74px;bottom:74px;
+          border:1px solid rgba(180,70,47,.16)}
+
+  /* 顶部品牌条 */
+  .brand{position:absolute;left:0;right:0;top:118px;display:flex;align-items:center;
+         justify-content:center;gap:20px}
+  .brand img{width:78px;height:78px;display:block}
+  .brand .name{font-family:"Kai","KaiTi",serif;font-size:44px;font-weight:700;
+               color:#8C2F2F;letter-spacing:8px}
+  .rule{position:absolute;left:50%;top:224px;transform:translateX(-50%);
+        width:180px;height:5px;border-radius:3px;background:#C8552F;opacity:.65}
+
+  /* 中部大字区（留给文案压字） */
+  .stage{position:absolute;left:120px;right:120px;top:430px;bottom:430px}
+
+  /* 底部签名 */
+  .sign{position:absolute;left:0;right:0;bottom:196px;text-align:center;
+        font-size:27px;color:#8A7864;letter-spacing:2px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;
+       background:#E08A3C;margin:0 12px 3px 12px}
+  /* 底部字幕安全区标记（视觉上不可见，仅占位） */
+  .safe{position:absolute;left:0;right:0;bottom:0;height:300px}
+</style></head>
+<body>
+  <div class="glow"></div>
+  <div class="grain"></div>
+  <div class="frame"></div>
+  <div class="frame2"></div>
+
+  <div class="brand">
+    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KICAgICDogIHolKHor7QgwrcgSVAgTE9HTyDnn6Lph4/mr43niYggdjUuMO+8iDIwMjYtMTAtMDYg6JGj5LqL6ZW/5a6a56i/77yJCiAgICAg5qC35byP77ya57Gz6buE5bqVICsg5pyx57qi44CM5LiN6KeE5YiZ5pat57q/5qGG44CN77yI5pat5rOVM++8mumVv+efremUmeiQve+8iQogICAgICAgICAgIOalt+S9k+mdoOWPs+erluaOkiDvvZwg5bCP5a2X44CM6ICB6JSh44CN5rex5aKo6JOdIO+9nCDlpKflrZfjgIzor7TjgI3kuq7mqZgKICAgICAgICAgICDlt6bkuK3lnIbngrnkuq7mqZkKICAgICDphY3oibLvvJrnsbPpu4TlupUgI0Y3RjFFNiDvvZwg5rex5aKo6JOd5a2XICMxQjJBNDEg772cIOS6ruapmOivtOWtlyAjRkY2QjAwCiAgICAgICAgICAg5Lqu5qmZ5ZyG54K5ICNGRjlGMUMg772cIOacsee6ouahhiAjQjIzQTJFCgogICAgIOKYhSDorr7orqHmhI/lm77vvIjokaPkuovplb/mjIflrprvvInvvJoKICAgICAgIOaWueahhuWbm+adoei+ueeLrOeri+aWreW8gOOAgemVv+efremUmeiQve+8jOWDj+maj+aJi+eUu+eahOS4gOWciCDigJTigJQg5LiN6Z2g5ZyG5b2i6KOB5YiH77yMCiAgICAgICDmlrnlvaLnirbmgIHkuIvnnIvkuZ/mmK/mlq3nmoTjgILlr5PmhI/vvJrop4Tnn6nkuI3lv4XlrozmlbTvvIznlZnnmb3miY3mmK/msJTlj6PjgIIKCiAgICAg6KeE5qC877yaMTA4MMOXMTA4MCDnlLvluIPvvIhTVkcgdmlld0JveCAwIDAgMTAwMCAxMDAw77yM5oyJIDAuMSDmr5TkvovmjaLnrpfvvIkKICAgICA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0gLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiB3aWR0aD0iMTAwMCIgaGVpZ2h0PSIxMDAwIj4KCiAgPCEtLSDlupXoibLvvJrnsbPpu4QgLS0+CiAgPHJlY3Qgd2lkdGg9IjEwMDAiIGhlaWdodD0iMTAwMCIgZmlsbD0iI0Y3RjFFNiIvPgoKICA8IS0tIOacsee6ouS4jeinhOWImeaWree6v+ahhu+8iOaWreazlTPvvJrlm5vmnaHovrnplb/nn63plJnokL3jgIHkvY3nva7lvq7plJnvvIkKICAgICAgIOWvueW6lOagt+advyB2aWV3Qm94IDEwMCDnmoTmlbDmja4gw5cxMO+8mgogICAgICAgIOS4iui+uSAgTTgsMTIgIEg4MCAgIC0+IE04MCwxMjAgIEg4MDAKICAgICAgICDlj7PovrkgIE04OCwyNiBWODggICAtPiBNODgwLDI2MCBWODgwCiAgICAgICAg5LiL6L65ICBNMjAsOTAgSDcyICAgLT4gTTIwMCw5MDAgSDcyMAogICAgICAgIOW3pui+uSAgTTEyLDcwIFYyMiAgIC0+IE0xMjAsNzAwIFYyMjAKICAtLT4KICA8ZyBzdHJva2U9IiNCMjNBMkUiIHN0cm9rZS13aWR0aD0iMjAiIGZpbGw9Im5vbmUiPgogICAgPHBhdGggZD0iTTgwIDEyMCBIODAwIi8+CiAgICA8cGF0aCBkPSJNODgwIDI2MCBWODgwIi8+CiAgICA8cGF0aCBkPSJNMjAwIDkwMCBINzIwIi8+CiAgICA8cGF0aCBkPSJNMTIwIDcwMCBWMjIwIi8+CiAgPC9nPgoKICA8IS0tIOerluaOkuaWh+Wtl++8mumdoOWPs+erluaOkiAtLT4KICA8ZyBmb250LWZhbWlseT0iS2FpVGksIFNpbUthaSwgc2VyaWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPgogICAgPCEtLSDogIEgLS0+CiAgICA8dGV4dCB4PSI2NDAiIHk9IjI1MCIgZm9udC1zaXplPSIxNzUiIGZpbGw9IiMxQjJBNDEiCiAgICAgICAgICBzdHJva2U9IiMxQjJBNDEiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPuiAgTwvdGV4dD4KICAgIDwhLS0g6JShIC0tPgogICAgPHRleHQgeD0iNjQwIiB5PSI0MzAiIGZvbnQtc2l6ZT0iMTc1IiBmaWxsPSIjMUIyQTQxIgogICAgICAgICAgc3Ryb2tlPSIjMUIyQTQxIiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj7olKE8L3RleHQ+CiAgICA8IS0tIOivtO+8iOacgOWkp++8jOS6ruapmO+8iSAtLT4KICAgIDx0ZXh0IHg9IjYxMCIgeT0iNzkwIiBmb250LXNpemU9IjMzMCIgZmlsbD0iI0ZGNkIwMCIKICAgICAgICAgIHN0cm9rZT0iI0ZGNkIwMCIgc3Ryb2tlLXdpZHRoPSIxNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+6K+0PC90ZXh0PgogIDwvZz4KCiAgPCEtLSDkuq7mqZnlnIbngrnvvIjlt6bkvqfnlZnnmb3lpITvvIzlr7npvZAi6ICBIuWtl++8iSAtLT4KICA8Y2lyY2xlIGN4PSIzMzAiIGN5PSIyNTAiIHI9IjY4IiBmaWxsPSIjRkY5RjFDIi8+Cgo8L3N2Zz4K" alt="">
+    <div class="name">老蔡说</div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="stage"></div>
+
+  <div class="sign">正在学心理学的普通人<span class="dot"></span>只说心事，不说教</div>
+  <div class="safe"></div>
+</body></html>

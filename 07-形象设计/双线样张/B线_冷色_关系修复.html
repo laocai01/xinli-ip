@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+  @font-face{font-family:'Kai';src:local('KaiTi'),local('STKaiti'),local('楷体')}
+  html,body{margin:0;padding:0}
+  body{width:1080px;height:1920px;overflow:hidden;position:relative;
+       font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+       background:radial-gradient(120% 80% at 50% 14%, #143C3A 0%, #0E2B2A 45%, #071B1A 100%)}
+
+  .grain{position:absolute;inset:0;opacity:.34;mix-blend-mode:screen;
+         background-image:repeating-linear-gradient(0deg, rgba(255,255,255,.030) 0 1px, transparent 1px 4px),
+                          repeating-linear-gradient(90deg, rgba(255,255,255,.022) 0 1px, transparent 1px 5px)}
+  .glow{position:absolute;left:50%;top:4%;width:1300px;height:1050px;transform:translateX(-50%);
+        background:radial-gradient(closest-side, rgba(80,190,170,.26), rgba(80,190,170,0) 70%)}
+
+  .frame{position:absolute;left:44px;top:44px;right:44px;bottom:44px;
+         border:4px dashed rgba(240,194,75,.42);border-radius:6px}
+  .frame2{position:absolute;left:64px;top:64px;right:64px;bottom:64px;
+          border:1px solid rgba(240,194,75,.16)}
+
+  /* ---- 顶部品牌条：居中 ---- */
+  .brand{position:absolute;left:0;right:0;top:150px;height:120px;
+         display:flex;align-items:center;justify-content:center;gap:22px}
+  .brand img{width:104px;height:104px;display:block}
+  .brand .name{font-family:"Kai","KaiTi",serif;font-size:58px;font-weight:700;
+               color:#F0C24B;letter-spacing:10px}
+  .rule{position:absolute;left:50%;top:302px;transform:translateX(-50%);
+        width:220px;height:6px;border-radius:3px;background:#F0C24B;opacity:.65}
+
+  .stage{position:absolute;left:88px;right:88px;top:380px;height:850px;
+         display:flex;flex-direction:column;align-items:center;justify-content:center;
+         text-align:center;overflow:hidden}
+
+  /* 引子：素色（低饱和白） */
+  .kicker{font-family:"Kai","KaiTi",serif;font-size:54px;font-weight:600;
+          color:#7E9C98;letter-spacing:12px;margin-bottom:38px}
+
+  /* 主钩子：全白，唯一焦点是 em（亮黄） */
+  .big{font-family:"Kai","KaiTi",serif;font-weight:700;color:#FFFFFF;
+       font-size:132px;line-height:1.26;letter-spacing:4px;
+       text-shadow:0 5px 14px rgba(0,0,0,.45)}
+  .big em{font-style:normal;color:#0E2B2A;background:#F0C24B;
+          padding:2px 10px;border-radius:4px}
+
+  .dotline{margin-top:36px;display:flex;align-items:center;gap:22px}
+  .dotline i{display:block;width:14px;height:14px;border-radius:50%;background:#3E6B66}
+  .dotline span{display:block;width:110px;height:3px;background:rgba(126,156,152,.35);border-radius:2px}
+
+  .punch{margin-top:36px;font-family:"Kai","KaiTi",serif;font-weight:700;
+         font-size:58px;color:#A9C4C0;letter-spacing:3px;line-height:1.44}
+
+  .bottom{position:absolute;left:0;right:0;top:1290px;height:300px;
+          display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
+  .hint{font-family:"Kai","KaiTi",serif;font-size:50px;font-weight:700;color:#F0C24B;
+        letter-spacing:4px;border-top:2px solid rgba(240,194,75,.28);
+        border-bottom:2px solid rgba(240,194,75,.28);padding:18px 40px}
+  .sign{margin-top:28px;font-size:29px;color:#7E9C98;letter-spacing:2px}
+  .sign .d{display:inline-block;width:10px;height:10px;border-radius:50%;
+           background:#F0C24B;margin:0 14px 3px 14px}
+
+  .safe{position:absolute;left:0;right:0;bottom:0;height:300px}
+</style></head>
+<body>
+  <div class="glow"></div>
+  <div class="grain"></div>
+  <div class="frame"></div>
+  <div class="frame2"></div>
+
+  <div class="brand">
+    <img src="__LOGO__">
+    <div class="name">老蔡说</div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="stage">
+    <div class="kicker">吵完之后</div>
+    <div class="big">你一开口<br>他就<em>不说话了</em></div>
+    <div class="dotline"><span></span><i></i><span></span></div>
+    <div class="punch">不是他不在乎<br>是你问的方式让他想逃</div>
+  </div>
+
+  <div class="bottom">
+    <div class="hint">我把学到的东西，分享给你</div>
+    <div class="sign">正在学心理学的普通人<span class="d"></span>只说心事，不说教</div>
+  </div>
+  <div class="safe"></div>
+</body></html>
